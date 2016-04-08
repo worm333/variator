@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,19 +18,20 @@ public class Variation<T extends Serializable> {
     private List<Integer> allCursors;
 
     private String fileStorePath;
-    private boolean separateFiles;
+    private int numberOfVariationsInFile;
     private List<List<Integer>> cursorVariations;
     private Condition<T> condition;
 
     private boolean end;
     private int cursorVariationsIndex;
+    private long fileName = 0;
 
     public void setFileStorePath(String fileStorePath) {
         this.fileStorePath = fileStorePath;
     }
 
-    public void setSeparateFiles(boolean separateFiles) {
-        this.separateFiles = separateFiles;
+    public void setNumberOfVariationsInFile(int numberOfVariationsInFile) {
+        this.numberOfVariationsInFile = numberOfVariationsInFile;
     }
 
     public void setCursorVariations(List<List<Integer>> cursorVariations) {
@@ -43,7 +44,7 @@ public class Variation<T extends Serializable> {
 
     public Set<List<T>> getAllVariations(List<List<T>> allPossibleVariations) {
         this.allPossibleVariations = allPossibleVariations;
-        this.allVariations = new HashSet<>();
+        this.allVariations = new LinkedHashSet<>();
         this.end = false;
 
         initCursors();
@@ -72,8 +73,11 @@ public class Variation<T extends Serializable> {
             else if (condition.isMeetingCondition(variation))
                 allVariations.add(variation);
 
-            if (fileStorePath != null && separateFiles)
-                writeVariationToFile(variation, allVariations.size() + "");
+            if (fileStorePath != null && allVariations.size() >= numberOfVariationsInFile) {
+                fileName += allVariations.size();
+                writeVariationToFile((Serializable) allVariations);
+                allVariations.clear();
+            }
 
             updateCursors();
 
@@ -119,12 +123,12 @@ public class Variation<T extends Serializable> {
     }
 
 
-    private void writeVariationToFile(List<T> variation, String fileName) {
+    private void writeVariationToFile(Serializable o) {
         try {
             FileOutputStream fileOut =
                     new FileOutputStream(fileStorePath + fileName);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(variation);
+            out.writeObject(o);
             out.close();
             fileOut.close();
         } catch (IOException i) {

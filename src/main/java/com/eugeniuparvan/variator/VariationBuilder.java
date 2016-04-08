@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class VariationBuilder<T extends Serializable> {
     private String fileStorePath;
-    private boolean separateFiles;
+    private int numberOfVariationsInFile;
     private List<List<Integer>> cursorVariations;
     private Condition<T> condition;
 
@@ -17,8 +17,8 @@ public class VariationBuilder<T extends Serializable> {
         return this;
     }
 
-    public VariationBuilder<T> withStoreInSeparatedFiles(boolean separateFiles) {
-        this.separateFiles = separateFiles;
+    public VariationBuilder<T> withStoreInFilesBy(int numberOfVariationsInFile) {
+        this.numberOfVariationsInFile = numberOfVariationsInFile;
         return this;
     }
 
@@ -35,7 +35,7 @@ public class VariationBuilder<T extends Serializable> {
     public Variation<T> build() {
         Variation<T> variation = new Variation<>();
         variation.setFileStorePath(fileStorePath);
-        variation.setSeparateFiles(separateFiles);
+        variation.setNumberOfVariationsInFile(numberOfVariationsInFile);
         variation.setCursorVariations(cursorVariations);
         variation.setCondition(condition);
         return variation;

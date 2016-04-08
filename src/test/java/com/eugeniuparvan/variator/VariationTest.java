@@ -67,12 +67,12 @@ public class VariationTest {
             return sum < 4;
         }).build();
 
-        List<List<Integer>> allCombinations = new ArrayList<>();
+        List<List<Integer>> allVariations = new ArrayList<>();
         List<Integer> a = new ArrayList<>(Arrays.asList(1, 2));
         List<Integer> b = new ArrayList<>(Arrays.asList(1, 2));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        Set<List<Integer>> result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        Set<List<Integer>> result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 3);
     }
 
@@ -84,12 +84,12 @@ public class VariationTest {
         cursorVariations.add(Arrays.asList(1));
         Variation<Integer> variation = variationBuilder.withCursorVariations(cursorVariations).build();
 
-        List<List<Integer>> allCombinations = new ArrayList<>();
+        List<List<Integer>> allVariations = new ArrayList<>();
         List<Integer> a = new ArrayList<>(Arrays.asList(1, 2));
         List<Integer> b = new ArrayList<>(Arrays.asList(1, 2));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        Set<List<Integer>> result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        Set<List<Integer>> result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 2);
 
 
@@ -97,12 +97,12 @@ public class VariationTest {
         cursorVariations.add(Arrays.asList(0, 1));
         variation = variationBuilder.withCursorVariations(cursorVariations).build();
 
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2));
         b = new ArrayList<>(Arrays.asList(1, 2));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 4);
 
 
@@ -110,14 +110,14 @@ public class VariationTest {
         cursorVariations.add(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         variation = variationBuilder.withCursorVariations(cursorVariations).build();
 
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         b = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         List<Integer> c = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        allCombinations.add(c);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        allVariations.add(c);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 1000);
 
 
@@ -125,69 +125,68 @@ public class VariationTest {
         cursorVariations.add(Arrays.asList(1));
         variation = variationBuilder.withCursorVariations(cursorVariations).build();
 
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         b = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         c = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        allCombinations.add(c);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        allVariations.add(c);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 10);
 
         cursorVariations = new ArrayList<>();
         cursorVariations.add(Arrays.asList(1, 2));
         variation = variationBuilder.withCursorVariations(cursorVariations).build();
 
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         b = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
         c = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        allCombinations.add(c);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        allVariations.add(c);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 100);
 
         CursorVariations cursorVariation = new CursorVariations(3, 1);
         variationBuilder = new VariationBuilder<>();
         variation = variationBuilder.withCursorVariations(cursorVariation.get()).build();
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2, 3));
         b = new ArrayList<>(Arrays.asList(1, 2, 3));
         c = new ArrayList<>(Arrays.asList(1, 2, 3));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        allCombinations.add(c);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        allVariations.add(c);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 7);
 
 
         cursorVariation = new CursorVariations(3, 2);
         variationBuilder = new VariationBuilder<>();
         variation = variationBuilder.withCursorVariations(cursorVariation.get()).build();
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2, 3));
         b = new ArrayList<>(Arrays.asList(1, 2, 3));
         c = new ArrayList<>(Arrays.asList(1, 2, 3));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        allCombinations.add(c);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        allVariations.add(c);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 19);
 
         cursorVariation = new CursorVariations(3, 3);
         variationBuilder = new VariationBuilder<>();
         variation = variationBuilder.withCursorVariations(cursorVariation.get()).build();
-        allCombinations = new ArrayList<>();
+        allVariations = new ArrayList<>();
         a = new ArrayList<>(Arrays.asList(1, 2, 3));
         b = new ArrayList<>(Arrays.asList(1, 2, 3));
         c = new ArrayList<>(Arrays.asList(1, 2, 3));
-        allCombinations.add(a);
-        allCombinations.add(b);
-        allCombinations.add(c);
-        result = variation.getAllVariations(allCombinations);
+        allVariations.add(a);
+        allVariations.add(b);
+        allVariations.add(c);
+        result = variation.getAllVariations(allVariations);
         Assert.assertEquals(result.size(), 27);
     }
-
 }
