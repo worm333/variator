@@ -11,6 +11,7 @@ public class VariationBuilder<T extends Serializable> {
     private int numberOfVariationsInFile;
     private List<List<Integer>> cursorVariations;
     private Condition<T> condition;
+    private StepExecutor stepExecutor;
 
     public VariationBuilder<T> withFileStorePath(String fileStorePath) {
         this.fileStorePath = fileStorePath;
@@ -32,12 +33,18 @@ public class VariationBuilder<T extends Serializable> {
         return this;
     }
 
+    public VariationBuilder<T> withStepExecutor(StepExecutor stepExecutor) {
+        this.stepExecutor = stepExecutor;
+        return this;
+    }
+
     public Variation<T> build() {
         Variation<T> variation = new Variation<>();
         variation.setFileStorePath(fileStorePath);
         variation.setNumberOfVariationsInFile(numberOfVariationsInFile);
         variation.setCursorVariations(cursorVariations);
         variation.setCondition(condition);
+        variation.setStepExecutor(stepExecutor);
         return variation;
     }
 

@@ -21,6 +21,7 @@ public class Variation<T extends Serializable> {
     private int numberOfVariationsInFile;
     private List<List<Integer>> cursorVariations;
     private Condition<T> condition;
+    private StepExecutor stepExecutor;
 
     private boolean end;
     private int cursorVariationsIndex;
@@ -42,6 +43,9 @@ public class Variation<T extends Serializable> {
         this.condition = condition;
     }
 
+    public void setStepExecutor(StepExecutor stepExecutor) {
+        this.stepExecutor = stepExecutor;
+    }
     public Set<List<T>> getAllVariations(List<List<T>> allPossibleVariations) {
         this.allPossibleVariations = allPossibleVariations;
         this.allVariations = new LinkedHashSet<>();
@@ -80,6 +84,8 @@ public class Variation<T extends Serializable> {
             }
 
             updateCursors();
+            if (stepExecutor != null)
+                stepExecutor.execute();
 
             if (cursorVariations == null) {
                 if (end)
