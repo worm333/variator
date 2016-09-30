@@ -13,17 +13,17 @@ import java.util.Set;
  * Created by eugeniuparvan on 4/5/16.
  */
 public class Variation<T extends Serializable> {
-    private Set<List<T>> allVariations;
-    private List<List<T>> allPossibleVariations;
-    private List<Integer> allCursors;
+    protected Set<List<T>> allVariations;
+    protected List<List<T>> allPossibleVariations;
+    protected List<Integer> allCursors;
 
-    private String fileStorePath;
-    private int numberOfVariationsInFile;
-    private List<List<Integer>> cursorVariations;
-    private Condition<T> condition;
-    private StepExecutor stepExecutor;
+    protected String fileStorePath;
+    protected int numberOfVariationsInFile;
+    protected List<List<Integer>> cursorVariations;
+    protected Condition<T> condition;
+    protected StepExecutor stepExecutor;
 
-    private boolean end;
+    public boolean end;
     private int cursorVariationsIndex;
     private long fileName = 0;
 
@@ -46,12 +46,19 @@ public class Variation<T extends Serializable> {
     public void setStepExecutor(StepExecutor stepExecutor) {
         this.stepExecutor = stepExecutor;
     }
+
     public Set<List<T>> getAllVariations(List<List<T>> allPossibleVariations) {
         this.allPossibleVariations = allPossibleVariations;
         this.allVariations = new LinkedHashSet<>();
         this.end = false;
 
         initCursors();
+
+        if (stepExecutor != null) {
+            stepExecutor.setVariation(this);
+            stepExecutor.setAllCursors(allCursors);
+            stepExecutor.setAllPossibleVariations(allPossibleVariations);
+        }
 
         startSearch();
 
@@ -84,7 +91,7 @@ public class Variation<T extends Serializable> {
             }
 
             updateCursors();
-            if (stepExecutor != null)
+            if (stepExecutor != null && !end)
                 stepExecutor.execute();
 
             if (cursorVariations == null) {

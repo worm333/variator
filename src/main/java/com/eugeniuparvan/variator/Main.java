@@ -10,9 +10,9 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         List<List<Integer>> allPossibleVariations = new ArrayList<>();
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 3; ++i) {
             List<Integer> variation = new ArrayList<>();
-            for (int j = 0; j < 10; ++j) {
+            for (int j = 0; j < 100; ++j) {
                 variation.add(j);
             }
             allPossibleVariations.add(variation);
